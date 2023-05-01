@@ -6,13 +6,14 @@ import {
   FaClock,
 } from 'react-icons/fa';
 
-import css from './EventCard.module.css';
 // import {format} ver 1
 // import formatEventStart from 'utils/formatEventStart';
 // import formatDuration from 'utils/formatDuration';
 
 // import {format} ver 2 from 'utils'
 import { formatEventStart, formatDuration } from 'utils';
+import { Card, Chip, EventName, Info } from './EventCard.styled';
+import { iconSize } from 'constants';
 
 export default function EventCard({
   name,
@@ -29,26 +30,26 @@ export default function EventCard({
   //   console.log(css[type]);
 
   return (
-    <div className={css.event}>
-      <h2 className={css.title}>{name}</h2>
-      <p className={css.info}>
-        <FaMapMarkerAlt className={css.icon} size={16} />
+    <Card>
+      <EventName>{name}</EventName>
+      <Info>
+        <FaMapMarkerAlt size={iconSize.sm} />
         {location}
-      </p>
-      <p className={css.info}>
-        <FaUserAlt className={css.icon} size={16} />
+      </Info>
+      <Info>
+        <FaUserAlt size={iconSize.sm} />
         {speaker}
-      </p>
-      <p className={css.info}>
-        <FaCalendarAlt className={css.icon} size={16} />
+      </Info>
+      <Info>
+        <FaCalendarAlt size={iconSize.sm} />
         {formatedStart}
-      </p>
-      <p className={css.info}>
-        <FaClock className={css.icon} size={16} />
+      </Info>
+      <Info>
+        <FaClock size={iconSize.sm} />
         {formatedDuration}
-      </p>
-      <span className={`${css.chip} ${css[type]}`}>{type}</span>
-    </div>
+      </Info>
+      <Chip eventType={type}>{type}</Chip>
+    </Card>
   );
 }
 

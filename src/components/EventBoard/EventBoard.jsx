@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import EventCard from 'components/EventCard/EventCard';
-import css from './EventBoard.module.css';
+import { Board } from './EventBoard.styled';
 
 export default function EventBoard({ events }) {
-  console.log(events);
+  // console.log(events);
   return (
-    <div className={css.eventBoard}>
+    <Board>
       {events.map(({ name, location, speaker, type, time }) => (
         <EventCard
           key={name}
@@ -17,7 +17,7 @@ export default function EventBoard({ events }) {
           end={time.end}
         />
       ))}
-    </div>
+    </Board>
   );
 }
 
@@ -32,6 +32,6 @@ EventBoard.propTypes = {
         start: PropTypes.string.isRequired,
         end: PropTypes.string.isRequired,
       }),
-    }),
+    })
   ),
 };

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
+import { Title } from './PageTitle.styled';
 
-import css from './PageTitle.module.css';
 export default function PageTitle({ text }) {
-  return <h1 className={css.title}>{text}</h1>;
+  return <Title>{text}</Title>;
 }
 
 PageTitle.propTypes = {
