@@ -19,7 +19,7 @@ import initialTodo from './data/todos.json';
 //   );
 // };
 
-// Задача TodoList --> для збереження стану робимо Арр класом
+// Задача TodoList --> для збереження стану робимо Арр класом //
 
 class App extends Component {
   state = {
