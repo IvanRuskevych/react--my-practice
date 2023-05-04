@@ -12,3 +12,4 @@ const Controls = ({ onIncrement, onDecrement }) => (
 );
 
 export default Controls;
+//

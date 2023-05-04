@@ -37,7 +37,7 @@ class Counter extends Component {
     //   };
     // });
 
-    // те саме але з неявним поверненям
+    // те саме але з неявним поверненям //
     this.setState(prevState => ({
       value: prevState.value + 1,
     }));

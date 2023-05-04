@@ -65,3 +65,4 @@ class ColorPicker extends Component {
 }
 
 export default ColorPicker;
+//
