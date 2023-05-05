@@ -1,54 +1,116 @@
-// import React, { Component } from 'react';
-// import TodoList from './TodoList/TodoList';
-// import initialTodo from './data/todos.json';
-
-// import Counter from './Counter/Counter';
-// import Dropdown from './Dropdown/Dropdown';
-
-import ColorPicker from './ColorPicker/ColorPicker';
-import options from './data/options.json';
-
-export const App = () => {
-  return (
-    <>
-      <h1>Состояние компонета</h1>
-      {/* <Counter initialValue={123} /> */}
-      {/* <Dropdown /> */}
-      <ColorPicker options={options} />
-      {/* <TodoList /> */}
-    </>
-  );
-};
+import React, { Component } from 'react';
+import TodoList from './TodoList/TodoList';
+import initialTodo from './data/todos.json';
+import TodoEditor from './TodoEditor/TodoEditor';
+import { nanoid } from 'nanoid';
+import Filter from './Filter/Filter';
 
 // Задача TodoList --> для збереження стану робимо Арр класом //
 
-// class App extends Component {
-//   state = {
-//     todos: initialTodo,
-//   };
+class App extends Component {
+  state = {
+    todos: initialTodo,
+    filter: '',
+  };
 
-//   deleteTodo = todoId => {
-//     this.setState(prevState => ({
-//       todos: prevState.todos.filter(todo => todo.id !== todoId),
-//     }));
-//   };
+  addTodo = text => {
+    console.log(text);
 
-//   render() {
-//     const { todos } = this.state;
-//     const totalNumber = todos.length;
-//     const completedNumber = todos.reduce(
-//       (acc, todo) => (todo.complited ? acc + 1 : acc),
-//       0
-//     );
+    const todo = {
+      id: nanoid(10),
+      text,
+      completed: false,
+    };
 
-//     return (
-//       <>
-//         <p>{`Total Number: ${totalNumber}`}</p>
-//         <p>{`Completed number: ${completedNumber}`}</p>
-//         <TodoList todos={todos} onDeleteTodo={this.deleteTodo}></TodoList>
-//       </>
-//     );
-//   }
-// }
+    // this.setState(prevState => ({
+    //   todos: [todo, ...prevState.todos],
+    // }));
+    this.setState(({ todos }) => ({
+      todos: [todo, ...todos],
+    }));
+  };
 
-// export { App };
+  deleteTodo = todoId => {
+    // this.setState(prevState => ({
+    //   todos: prevState.todos.filter(todo => todo.id !== todoId),
+    // }));
+    this.setState(({ todos }) => ({
+      todos: todos.filter(todo => todo.id !== todoId),
+    }));
+  };
+
+  toggleCompleted = todoId => {
+    console.log(todoId);
+
+    // // var 01
+    // this.setState(prevState => {
+    //   prevState.todos.map(todo => {
+    //     if (todo.id === todoId) {
+    //       return { ...todo, completed: !todo.completed };
+    //     }
+    //     return todo;
+    //   });
+    // });
+
+    // var 02
+    // this.setState(prevState => ({
+    //   todos: prevState.todos.map(todo => {
+    //     return todo.id === todoId
+    //       ? { ...todo, completed: !todo.completed }
+    //       : todo;
+    //   }),
+    // }));
+    // var 02 + деструктуризація prevState
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo => {
+        return todo.id === todoId
+          ? { ...todo, completed: !todo.completed }
+          : todo;
+      }),
+    }));
+  };
+
+  changedFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getVisibleTodo = () => {
+    const { filter, todos } = this.state;
+    const normolizedValue = filter.toLowerCase();
+
+    return todos.filter(todo =>
+      todo.text.toLowerCase().includes(normolizedValue)
+    );
+  };
+
+  calcCompletedTodos = () => {
+    const { todos } = this.state;
+    return todos.reduce((acc, todo) => (todo.completed ? acc + 1 : acc), 0);
+  };
+
+  render() {
+    const { todos, filter } = this.state;
+    const totalNumber = todos.length;
+    const visibleTodo = this.getVisibleTodo();
+    const completedNumber = this.calcCompletedTodos();
+
+    return (
+      <>
+        <p>{`Total Number: ${totalNumber}`}</p>
+        <p>{`Completed number: ${completedNumber}`}</p>
+
+        <TodoEditor onSubmit={this.addTodo}></TodoEditor>
+
+        <Filter value={filter} onChange={this.changedFilter}></Filter>
+
+        <TodoList
+          todos={visibleTodo}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted}
+        ></TodoList>
+      </>
+    );
+  }
+}
+
+export default App;
