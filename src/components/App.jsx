@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
 import TodoList from './TodoList/TodoList';
-import initialTodo from './data/todos.json';
+// import initialTodo from './data/todos.json';
 import TodoEditor from './TodoEditor/TodoEditor';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
+import Modal from './Modal/Modal';
+import Clock from './Clock/Clock';
+import Tabs from './Tabs/Tabs';
+import tabs from './data/tabs.json';
 
 // Задача TodoList --> для збереження стану робимо Арр класом //
 
 class App extends Component {
   state = {
-    todos: initialTodo,
+    todos: [],
     filter: '',
+    showModal: false,
+  };
+
+  componentDidMount = () => {
+    // console.log('App componentDidMount ');
+
+    const todosLocalStorage = JSON.parse(localStorage.getItem('todos'));
+    // console.log(todosLocalStorage);
+    if (this.todos) {
+      this.setState({ todos: todosLocalStorage });
+    }
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    // console.log('App componentDidUpdate');
+
+    if (this.state.todos !== prevState.todos) {
+      // console.log('<<--Updated todos, save todos to LocalStorage-->>');
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
   };
 
   addTodo = text => {
-    console.log(text);
+    // console.log(text);
 
     const todo = {
       id: nanoid(10),
@@ -88,15 +113,53 @@ class App extends Component {
     return todos.reduce((acc, todo) => (todo.completed ? acc + 1 : acc), 0);
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   render() {
-    const { todos, filter } = this.state;
+    // console.log('render()');
+    const { todos, filter, showModal } = this.state;
     const totalNumber = todos.length;
     const visibleTodo = this.getVisibleTodo();
     const completedNumber = this.calcCompletedTodos();
 
     return (
       <>
-        <p>{`Total Number: ${totalNumber}`}</p>
+        {/* MODAL_TASK */}
+
+        {/* <button type="button" onClick={this.toggleModal}>
+          Open Modal
+        </button>
+        {showModal && (
+          <Modal toggleModal={this.toggleModal}>
+            <h2>Modal`s children</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus
+              corporis numquam consectetur dolore, accusantium eligendi pariatur
+              inventore suscipit dolorem possimus aliquid quidem odio animi
+              minima cupiditate praesentium? Eius, unde cumque quos consequuntur
+              necessitatibus quibusdam magni temporibus doloremque similique
+              dolorem animi eum aspernatur esse! Et a velit ratione voluptas
+              perferendis quae pariatur magni quod corrupti aliquid
+              exercitationem aspernatur adipisci ducimus nihil iusto illo,
+              suscipit quas explicabo at! Odio magni obcaecati, dolorum eos
+              minus id soluta minima deleniti quisquam architecto pariatur
+              molestias a error doloremque commodi, voluptate eius quos
+              aspernatur delectus, quis adipisci voluptas illo tempore optio!
+              Repudiandae maiores recusandae quos blanditiis.
+            </p>
+            <button type="button" onClick={this.toggleModal}>
+              Close Modal
+            </button>
+          </Modal>
+        )} */}
+
+        {/* TODO-TASK */}
+
+        {/* <p>{`Total Number: ${totalNumber}`}</p>
         <p>{`Completed number: ${completedNumber}`}</p>
 
         <TodoEditor onSubmit={this.addTodo}></TodoEditor>
@@ -107,7 +170,15 @@ class App extends Component {
           todos={visibleTodo}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        ></TodoList>
+        ></TodoList> */}
+
+        {/* CLOCK-TASK */}
+
+        {/* <Clock /> */}
+
+        {/* TABS--TASK */}
+
+        <Tabs items={tabs} />
       </>
     );
   }
