@@ -21,6 +21,6 @@ export default class Clock extends Component {
   }
 
   render() {
-    return <div className={css.Clock__face}>{this.state.time}</div>;
+    return <div className={css.clock__face}>{this.state.time}</div>;
   }
 }

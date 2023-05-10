@@ -5,9 +5,12 @@ import TodoEditor from './TodoEditor/TodoEditor';
 import { nanoid } from 'nanoid';
 import Filter from './Filter/Filter';
 import Modal from './Modal/Modal';
-import Clock from './Clock/Clock';
+// import Clock from './Clock/Clock';
 import Tabs from './Tabs/Tabs';
 import tabs from './data/tabs.json';
+import IconButton from './IconButton/IconButton';
+import { ReactComponent as AddIcon } from '../icons/add.svg';
+import { ReactComponent as DeleteIcon } from '../icons/delete.svg';
 
 // Задача TodoList --> для збереження стану робимо Арр класом //
 
@@ -19,11 +22,12 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    // console.log('App componentDidMount ');
+    console.log('App componentDidMount ');
 
     const todosLocalStorage = JSON.parse(localStorage.getItem('todos'));
-    // console.log(todosLocalStorage);
-    if (this.todos) {
+    console.log(todosLocalStorage);
+
+    if (todosLocalStorage) {
       this.setState({ todos: todosLocalStorage });
     }
   };
@@ -31,12 +35,19 @@ class App extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     // console.log('App componentDidUpdate');
 
-    if (this.state.todos !== prevState.todos) {
+    const nextTodos = this.state.todos;
+    const prevTodos = prevState.todos;
+
+    if (nextTodos !== prevTodos) {
       // console.log('<<--Updated todos, save todos to LocalStorage-->>');
 
-      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+      localStorage.setItem('todos', JSON.stringify(nextTodos));
     }
-  };
+
+    if (prevTodos.length < nextTodos.length && prevTodos.length !== 0) {
+      this.toggleModal();
+    }
+  }; // менш повязана логіка ніж з addTodo--this.toggleModal()
 
   addTodo = text => {
     // console.log(text);
@@ -53,12 +64,15 @@ class App extends Component {
     this.setState(({ todos }) => ({
       todos: [todo, ...todos],
     }));
+
+    // this.toggleModal(); // ми жорстко привязали до  addTodo --> інший варіант через componentDidMount
   };
 
   deleteTodo = todoId => {
     // this.setState(prevState => ({
     //   todos: prevState.todos.filter(todo => todo.id !== todoId),
     // }));
+
     this.setState(({ todos }) => ({
       todos: todos.filter(todo => todo.id !== todoId),
     }));
@@ -132,37 +146,32 @@ class App extends Component {
 
         {/* <button type="button" onClick={this.toggleModal}>
           Open Modal
-        </button>
+        </button> */}
+
+        <IconButton onClick={this.toggleModal} aria-label="Add todo">
+          <AddIcon width="40" height="40" fill="#fff" />
+        </IconButton>
+
         {showModal && (
           <Modal toggleModal={this.toggleModal}>
             <h2>Modal`s children</h2>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus
-              corporis numquam consectetur dolore, accusantium eligendi pariatur
-              inventore suscipit dolorem possimus aliquid quidem odio animi
-              minima cupiditate praesentium? Eius, unde cumque quos consequuntur
-              necessitatibus quibusdam magni temporibus doloremque similique
-              dolorem animi eum aspernatur esse! Et a velit ratione voluptas
-              perferendis quae pariatur magni quod corrupti aliquid
-              exercitationem aspernatur adipisci ducimus nihil iusto illo,
-              suscipit quas explicabo at! Odio magni obcaecati, dolorum eos
-              minus id soluta minima deleniti quisquam architecto pariatur
-              molestias a error doloremque commodi, voluptate eius quos
-              aspernatur delectus, quis adipisci voluptas illo tempore optio!
-              Repudiandae maiores recusandae quos blanditiis.
-            </p>
-            <button type="button" onClick={this.toggleModal}>
+            <TodoEditor onSubmit={this.addTodo}></TodoEditor>
+
+            {/* <button type="button" onClick={this.toggleModal}>
               Close Modal
-            </button>
+            </button> */}
+            <IconButton onClick={this.toggleModal} aria-label="Close modal">
+              <DeleteIcon width="40" height="40" fill="#fff" />
+            </IconButton>
           </Modal>
-        )} */}
+        )}
 
         {/* TODO-TASK */}
 
-        {/* <p>{`Total Number: ${totalNumber}`}</p>
+        <p>{`Total Number: ${totalNumber}`}</p>
         <p>{`Completed number: ${completedNumber}`}</p>
 
-        <TodoEditor onSubmit={this.addTodo}></TodoEditor>
+        {/* <TodoEditor onSubmit={this.addTodo}></TodoEditor> */}
 
         <Filter value={filter} onChange={this.changedFilter}></Filter>
 
@@ -170,7 +179,7 @@ class App extends Component {
           todos={visibleTodo}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        ></TodoList> */}
+        ></TodoList>
 
         {/* CLOCK-TASK */}
 

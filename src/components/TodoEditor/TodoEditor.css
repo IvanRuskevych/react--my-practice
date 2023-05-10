@@ -1,5 +1,5 @@
 .TodoEditor {
-  width: 600px;
+  width: initial;
   display: flex;
   flex-direction: column;
   padding: 16px;

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import './TodoList.css';
+import Todo from 'components/Todo/Todo';
 
 function TodoList({ todos, onDeleteTodo, onToggleCompleted }) {
   return (
@@ -11,7 +12,13 @@ function TodoList({ todos, onDeleteTodo, onToggleCompleted }) {
             'TodoList__item--completed': completed,
           })}
         >
-          <input
+          <Todo
+            text={text}
+            completed={completed}
+            onToggleCompleted={() => onToggleCompleted(id)}
+            onDeleteTodo={() => onDeleteTodo(id)}
+          ></Todo>
+          {/* <input
             type="checkbox"
             className="TodoList__checkbox"
             checked={completed}
@@ -21,7 +28,7 @@ function TodoList({ todos, onDeleteTodo, onToggleCompleted }) {
           <p className="TodoList__text">{text}</p>
           <button className="TodoList__btn" onClick={() => onDeleteTodo(id)}>
             Delete
-          </button>
+          </button> */}
         </li>
       ))}
     </ul>
