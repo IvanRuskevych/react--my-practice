@@ -11,6 +11,7 @@ import tabs from './data/tabs.json';
 import IconButton from './IconButton/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
 import { ReactComponent as DeleteIcon } from '../icons/delete.svg';
+import initialTodos from './data/todos.json';
 
 // Задача TodoList --> для збереження стану робимо Арр класом //
 
@@ -27,9 +28,10 @@ class App extends Component {
     const todosLocalStorage = JSON.parse(localStorage.getItem('todos'));
     console.log(todosLocalStorage);
 
-    if (todosLocalStorage) {
-      this.setState({ todos: todosLocalStorage });
+    if (todosLocalStorage !== null) {
+      return this.setState({ todos: todosLocalStorage });
     }
+    this.setState({ todos: initialTodos });
   };
 
   componentDidUpdate = (prevProps, prevState) => {
