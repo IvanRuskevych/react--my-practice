@@ -20,8 +20,8 @@ export const TaskList = () => {
   // const tasks = useSelector(state => state.tasks); // var 01
   // console.log(tasks);
   const tasks = useSelector(getTasks); // var 02
-  console.log(getTasks);
-  console.log(tasks);
+  // console.log(getTasks);
+  // console.log(tasks);
 
   // Отримуємо значення фільтра із стану Redux
   // const statusFilter = useSelector(state => state.filters.status); // var 01

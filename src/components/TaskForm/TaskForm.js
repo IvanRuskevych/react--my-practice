@@ -1,7 +1,7 @@
 import { Button } from 'components/Button/Button';
 import css from './TaskForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addTasks } from 'redux/actions';
+import { addTask } from 'redux/actions';
 // import { toast } from 'react-toastify';
 import { Notify } from 'notiflix';
 
@@ -33,7 +33,7 @@ export const TaskForm = () => {
       return;
     }
 
-    dispatch(addTasks(form.elements.text.value));
+    dispatch(addTask(form.elements.text.value));
     form.reset();
   };
 

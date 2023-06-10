@@ -5,8 +5,8 @@ export const statusFilters = Object.freeze({
 });
 
 export const ACTIONS_TYPE = Object.freeze({
-  addTasks: 'tasks/addTasks',
-  deleteTasks: 'tasks/deleteTasks',
+  addTask: 'tasks/addTask',
+  deleteTask: 'tasks/deleteTask',
   toggleCompleted: 'tasks/toggleCompleted',
   setStatusFilter: 'tasks/setStatusFilter',
 });
