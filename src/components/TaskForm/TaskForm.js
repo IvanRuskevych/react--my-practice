@@ -1,9 +1,10 @@
 import { Button } from 'components/Button/Button';
 import css from './TaskForm.module.css';
 import { useDispatch } from 'react-redux';
-import { addTask } from 'redux/actions';
+// import { addTask } from 'redux/actions';
 // import { toast } from 'react-toastify';
 import { Notify } from 'notiflix';
+import { addTask } from 'redux/tasksSlice';
 
 export const TaskForm = () => {
   const dispatch = useDispatch();

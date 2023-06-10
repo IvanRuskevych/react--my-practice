@@ -1,20 +1,20 @@
-import { createAction, nanoid } from '@reduxjs/toolkit';
-import { ACTIONS_TYPE } from './constants';
+// import { createAction, nanoid } from '@reduxjs/toolkit';
+// import { ACTIONS_TYPE } from './constants';
 
-// =================== After =====================
-export const addTask = createAction(ACTIONS_TYPE.addTask, text => {
-  return {
-    payload: {
-      text,
-      id: nanoid(),
-      completed: false,
-    },
-  };
-});
+// // =================== After =====================
+// export const addTask = createAction(ACTIONS_TYPE.addTask, text => {
+//   return {
+//     payload: {
+//       text,
+//       id: nanoid(),
+//       completed: false,
+//     },
+//   };
+// });
 
-export const deleteTask = createAction(ACTIONS_TYPE.deleteTask);
-export const toggleCompleted = createAction(ACTIONS_TYPE.toggleCompleted);
-export const setStatusFilter = createAction(ACTIONS_TYPE.setStatusFilter);
+// export const deleteTask = createAction(ACTIONS_TYPE.deleteTask);
+// export const toggleCompleted = createAction(ACTIONS_TYPE.toggleCompleted);
+// export const setStatusFilter = createAction(ACTIONS_TYPE.setStatusFilter);
 
 // // =============== Before =====================
 

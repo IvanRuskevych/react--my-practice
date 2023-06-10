@@ -1,57 +1,55 @@
-// ==================After=====================
+// import { createReducer } from '@reduxjs/toolkit';
+// import {
+//   addTask,
+//   deleteTask,
+//   setStatusFilter,
+//   toggleCompleted,
+// } from './actions';
 
-import { createReducer } from '@reduxjs/toolkit';
-import {
-  addTask,
-  deleteTask,
-  setStatusFilter,
-  toggleCompleted,
-} from './actions';
+// const { statusFilters } = require('./constants');
 
-const { statusFilters } = require('./constants');
+// const tasksInitialState = [
+//   { id: 0, text: 'Learn HTML and CSS', completed: true },
+//   { id: 1, text: 'Get good at JavaScript', completed: true },
+//   { id: 2, text: 'Master React', completed: false },
+//   { id: 3, text: 'Discover Redux', completed: false },
+//   { id: 4, text: 'Build amazing apps', completed: false },
+// ];
 
-const tasksInitialState = [
-  { id: 0, text: 'Learn HTML and CSS', completed: true },
-  { id: 1, text: 'Get good at JavaScript', completed: true },
-  { id: 2, text: 'Master React', completed: false },
-  { id: 3, text: 'Discover Redux', completed: false },
-  { id: 4, text: 'Build amazing apps', completed: false },
-];
-
-const filtersInitialState = {
-  status: statusFilters.all,
-};
+// const filtersInitialState = {
+//   status: statusFilters.all,
+// };
 
 //======================After --> After 1=============================
 
-export const tasksReducer = createReducer(tasksInitialState, {
-  [addTask]: (state, action) => {
-    return [...state, action.payload];
-  },
+// export const tasksReducer = createReducer(tasksInitialState, {
+//   [addTask]: (state, action) => {
+//     return [...state, action.payload];
+//   },
 
-  [deleteTask]: (state, { payload }) => {
-    console.log(payload);
-    return state.filter(task => task.id !== payload);
-  },
+//   [deleteTask]: (state, { payload }) => {
+//     console.log(payload);
+//     return state.filter(task => task.id !== payload);
+//   },
 
-  [toggleCompleted]: (state, { payload }) => {
-    return state.map(task => {
-      if (task.id !== payload) {
-        return task;
-      }
-      return {
-        ...task,
-        completed: !task.completed,
-      };
-    });
-  },
-});
+//   [toggleCompleted]: (state, { payload }) => {
+//     return state.map(task => {
+//       if (task.id !== payload) {
+//         return task;
+//       }
+//       return {
+//         ...task,
+//         completed: !task.completed,
+//       };
+//     });
+//   },
+// });
 
-export const filtersReducer = createReducer(filtersInitialState, {
-  [setStatusFilter]: (state, { payload }) => {
-    return { ...state, status: payload };
-  },
-});
+// export const filtersReducer = createReducer(filtersInitialState, {
+//   [setStatusFilter]: (state, { payload }) => {
+//     return { ...state, status: payload };
+//   },
+// });
 
 // // =============== After 1--> Before 1================
 
