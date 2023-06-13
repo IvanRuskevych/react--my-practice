@@ -32,7 +32,7 @@ export const deleteTask = createAsyncThunk(
   async (taskId, thunkAPI) => {
     try {
       const response = await axios.delete(`/tasks/${taskId}`);
-      console.log('deleteTask--payload :>>', response.data);
+      // console.log('deleteTask--payload :>>', response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

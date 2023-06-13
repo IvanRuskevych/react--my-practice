@@ -7,6 +7,7 @@ export const Task = ({ task }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => dispatch(deleteTask(task.id));
+
   const handleToggle = () => dispatch(toggleCompleted(task));
 
   return (
@@ -18,7 +19,7 @@ export const Task = ({ task }) => {
         onChange={handleToggle}
       />
       <p className={css.text}>{task.text}</p>
-      <button className={css.btn} name="deleteTask" onClick={handleDelete}>
+      <button className={css.btn} onClick={handleDelete}>
         <MdClose size={24} />
       </button>
     </div>

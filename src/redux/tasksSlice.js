@@ -8,6 +8,7 @@ const tasksSlice = createSlice({
     isLoading: false,
     error: null,
   },
+
   extraReducers: {
     [fetchTasks.pending](state) {
       state.isLoading = true;
