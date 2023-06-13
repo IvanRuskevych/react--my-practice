@@ -1,5 +1,5 @@
-export const selectorTasks = state => state.tasks.items;
-export const selectorIsLoading = state => state.tasks.isLoading;
-export const selectorError = state => state.tasks.error;
+export const selectTasks = state => state.tasks.items;
+export const selectIsLoading = state => state.tasks.isLoading;
+export const selectError = state => state.tasks.error;
 
-export const selectorStatusFilter = state => state.filters.status;
+export const selectStatusFilter = state => state.filters.status;
