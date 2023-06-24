@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { tasksReducer } from './tasksSlice';
 import { filtersReducer } from './filtersSlice';
 import { authReducer } from './auth/slice';
+import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
   persistReducer,
@@ -32,6 +33,10 @@ export const store = configureStore({
   reducer: {
     tasks: tasksReducer,
     filters: filtersReducer,
-    auth: authReducer,
+    auth: persistReducer(persistConfig, authReducer),
   },
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
 });
+
+export const persistor = persistStore(store);
